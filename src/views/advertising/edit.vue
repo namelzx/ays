@@ -11,14 +11,12 @@
 
       <el-form-item label="广告种类：">
         <el-radio-group v-model="homeAdvertise.type">
-          <!--<el-radio :label="1">图文</el-radio>-->
+          <el-radio :label="1">图文</el-radio>
           <el-radio :label="2">链接</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="广告主图：">
         <oneImage :imageUrl="homeAdvertise.images_url" @HandelFile="handellicense"></oneImage>
-
-        <!--<single-upload v-model="homeAdvertise.oneImage"></single-upload>-->
       </el-form-item>
       <el-form-item label="排序：">
         <el-input v-model="homeAdvertise.sort" class="input-width"></el-input>

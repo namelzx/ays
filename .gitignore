@@ -1,0 +1,14 @@
+/.idea
+/.vscode
+/vendor
+*.log
+thinkphp
+.env
+.DS_Store
+node_modules/
+/dist/
+
+carcopy/node_modules/*
+
+sys/node_modules/*
+yewu/node_modules/*

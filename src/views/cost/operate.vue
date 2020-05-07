@@ -266,7 +266,6 @@
                 type="primary"
                 @click="handleUpdate(item)"
               >财审1通过</el-button>
-
               <el-button
                 v-if="item.status==='待财审2'&&rolesbtn('o-97-h-3')"
                 size="mini"
@@ -301,7 +300,7 @@
           <div class="list-item order-btn">
             <template v-if="item.status==='待初审'||item.status==='待财审1'||item.status==='待财审2'">
               <el-button
-                v-if="rolesbtn('o-96-h-1')||rolesbtn('o-96-h-2')||rolesbtn('o-96-h-3')||rolesbtn('o-96-h-4')"
+                v-if="rolesbtn('o-97-h-1')||rolesbtn('o-97-h-2')||rolesbtn('o-97-h-3')"
                 size="mini"
                 type="warning"
                 plain
@@ -310,7 +309,7 @@
             </template>
 
             <el-button
-
+                    v-if="rolesbtn('o-97-h-1')||rolesbtn('o-97-h-2')||rolesbtn('o-97-h-3')"
               size="mini"
               type="warning"
               plain
