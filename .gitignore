@@ -1,14 +1,23 @@
-/.idea
-/.vscode
-/vendor
-*.log
-thinkphp
-.env
 .DS_Store
 node_modules/
-/dist/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+**/*.log
 
-carcopy/node_modules/*
+tests/**/coverage/
+tests/e2e/reports
+selenium-debug.log
 
-sys/node_modules/*
-yewu/node_modules/*
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.local
+
+package-lock.json
+yarn.lock
