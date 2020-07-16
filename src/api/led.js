@@ -47,3 +47,12 @@ export function GetDataByAll(query) {
     data: query
   })
 }
+
+
+
+export function GetLedByTree() {
+  return request({
+    url: '/admin/Led/GetLedByTree',
+    method: 'get',
+  })
+}

@@ -1,5 +1,140 @@
 <template>
   <div class="zichan-container">
+    <div class="income-search">
+      <div class="search-item">
+        <div class="label">状态：</div>
+        <div class="value">
+          <el-select v-model="listQuery.status" placeholder="请选择">
+            <el-option
+                    v-for="item in statusop"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value"
+            />
+          </el-select>
+        </div>
+      </div>
+
+
+      <div class="search-item">
+        <div class="search-btn"  @click="handleFilter">搜索</div>
+        <div class="search-btn"  @click="clickToNewTicket">新建</div>
+
+      </div>
+
+
+    </div>
+    <div class="income-form">
+
+      <div class="ticket-wrap">
+        <div
+                v-for="(item,index) of ticketList"
+                :key="index"
+                class="ticket-item"
+
+        >
+          <div  class="ticket-icon">
+            <i class="el-icon-zoom-out" @click="clickTicket(item)" />
+            <i class="el-icon-delete" @click="clickDelete(item)" />
+          </div>
+
+          <div class="ticket-owner">{{ item.owner }}</div>
+          <div v-if="item.status === 1" class="ticket-img">
+            <!-- 已发送 -->
+            <img
+                    src="https://kedand.oss-cn-beijing.aliyuncs.com/uploads/icon_%E5%8F%91%E9%80%81%E4%B8%AD%402x.png"
+                    alt
+            >
+          </div>
+          <div v-if="item.status === 2" class="ticket-img">
+            <!-- 已过期 -->
+
+            <img
+                    src="https://kedand.oss-cn-beijing.aliyuncs.com/uploads/icon_%E5%B7%B2%E8%BF%87%E6%9C%9F%402x.png"
+                    alt
+            >
+          </div>
+          <div v-if="item.status === 3" class="ticket-img">
+            <!-- 已删除 -->
+            <img
+                    src="https://kedand.oss-cn-beijing.aliyuncs.com/uploads/icon_%E5%B7%B2%E5%88%A0%E9%99%A4%402x.png"
+                    alt
+            >
+          </div>
+          <div v-if="item.status === 4" class="ticket-img">
+            <!-- 已失效 -->
+            <img
+                    src="https://kedand.oss-cn-beijing.aliyuncs.com/uploads/icon_%E5%B7%B2%E5%A4%B1%E6%95%88%402x.png"
+                    alt
+            >
+          </div>
+          <div class="ticket-top">
+            <div class="ticket-num">
+              ¥
+              <span>{{ item.price }}</span>
+            </div>
+            <div class="ticket-addition">
+              <span>{{ item.title}}</span>
+            </div>
+          </div>
+          <div class="ticket-center">
+            <div v class="ticket-comment">说明：{{ item.desc }}</div>
+          </div>
+          <div class="ticket-bottom">
+            <div class="ticket-expir">有效期{{ item.start_time|parseTime('{y}-{m}-{d}') }}-{{ item.end_time|parseTime('{y}-{m}-{d}') }}</div>
+          </div>
+        </div>
+      </div>
+      <!--<el-table-->
+      <!--v-loading="loading"-->
+      <!--:data="ticketList"-->
+      <!--stripe-->
+      <!--style="width: 100%">-->
+      <!--<el-table-column-->
+      <!--prop="title"-->
+      <!--label="使用条件"-->
+      <!--width="180">-->
+      <!--</el-table-column>-->
+      <!--<el-table-column-->
+      <!--prop="status"-->
+      <!--label="使用有效期"-->
+      <!--width="180">-->
+      <!--</el-table-column>-->
+      <!--<el-table-column-->
+
+      <!--label="发送期限">-->
+      <!--<template slot-scope="scope">-->
+
+      <!--<span>{{scope.row.start_time|parseTime('{y}-{m}-{d}')}}</span>-->
+      <!-- - -->
+      <!--<span>{{scope.row.end_time|parseTime('{y}-{m}-{d}')}}</span>-->
+
+      <!--</template>-->
+      <!--</el-table-column>-->
+
+      <!--<el-table-column-->
+
+      <!--label="发送卡卷">-->
+      <!--<template slot-scope="scope">-->
+
+      <!--<span>{{scope.row.price}}</span>-->
+
+      <!--</template>-->
+      <!--</el-table-column>-->
+
+      <!--<el-table-column-->
+
+      <!--label="管理">-->
+      <!--<template slot-scope="scope">-->
+      <!--<el-button type="text">修改</el-button>-->
+      <!--<el-button type="text">删除</el-button>-->
+
+      <!--</template>-->
+      <!--</el-table-column>-->
+      <!--</el-table>-->
+    </div>
+
+
     <div v-if="showTicket" class="mask">
       <div class="mask-box">
         <div class="mask-title">
@@ -37,151 +172,6 @@
           <div class="cancel" @click="clickTicket">关闭</div>
         </div>
       </div>
-    </div>
-    <div class="income-form">
-      <div class="income-search">
-        <div class="search-item">
-          <div class="label">状态：</div>
-          <div class="value">
-            <el-select v-model="listQuery.status" placeholder="请选择">
-              <el-option
-                v-for="item in statusop"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              />
-            </el-select>
-          </div>
-        </div>
-
-        <!--<div class="search-item">-->
-          <!--<div class="label">到期时间：</div>-->
-          <!--<div class="value">-->
-            <!--<el-select v-model="listQuery.day" placeholder="请选择">-->
-              <!--<el-option-->
-                <!--v-for="item in expirTime"-->
-                <!--:key="item.value"-->
-                <!--:label="item.label"-->
-                <!--:value="item.value"-->
-              <!--/>-->
-            <!--</el-select>-->
-          <!--</div>-->
-        <!--</div>-->
-
-        <div class="search-item">
-          <div class="search-btn"  @click="handleFilter">搜索</div>
-          <div class="search-btn"  @click="clickToNewTicket">新建</div>
-
-        </div>
-
-
-      </div>
-      <div class="ticket-wrap">
-        <div
-          v-for="(item,index) of ticketList"
-          :key="index"
-          class="ticket-item"
-
-        >
-          <div  class="ticket-icon">
-            <i class="el-icon-zoom-out" @click="clickTicket(item)" />
-            <i class="el-icon-delete" @click="clickDelete(item)" />
-          </div>
-
-          <div class="ticket-owner">{{ item.owner }}</div>
-          <div v-if="item.status === 1" class="ticket-img">
-            <!-- 已发送 -->
-            <img
-              src="https://kedand.oss-cn-beijing.aliyuncs.com/uploads/icon_%E5%8F%91%E9%80%81%E4%B8%AD%402x.png"
-              alt
-            >
-          </div>
-          <div v-if="item.status === 2" class="ticket-img">
-            <!-- 已过期 -->
-
-            <img
-              src="https://kedand.oss-cn-beijing.aliyuncs.com/uploads/icon_%E5%B7%B2%E8%BF%87%E6%9C%9F%402x.png"
-              alt
-            >
-          </div>
-          <div v-if="item.status === 3" class="ticket-img">
-            <!-- 已删除 -->
-            <img
-              src="https://kedand.oss-cn-beijing.aliyuncs.com/uploads/icon_%E5%B7%B2%E5%88%A0%E9%99%A4%402x.png"
-              alt
-            >
-          </div>
-          <div v-if="item.status === 4" class="ticket-img">
-            <!-- 已失效 -->
-            <img
-              src="https://kedand.oss-cn-beijing.aliyuncs.com/uploads/icon_%E5%B7%B2%E5%A4%B1%E6%95%88%402x.png"
-              alt
-            >
-          </div>
-          <div class="ticket-top">
-            <div class="ticket-num">
-              ¥
-              <span>{{ item.price }}</span>
-            </div>
-            <div class="ticket-addition">
-              <span>{{ item.title}}</span>
-            </div>
-          </div>
-          <div class="ticket-center">
-            <div v class="ticket-comment">说明：{{ item.desc }}</div>
-          </div>
-          <div class="ticket-bottom">
-            <div class="ticket-expir">有效期{{ item.start_time|parseTime('{y}-{m}-{d}') }}-{{ item.end_time|parseTime('{y}-{m}-{d}') }}</div>
-          </div>
-        </div>
-    </div>
-      <!--<el-table-->
-        <!--v-loading="loading"-->
-        <!--:data="ticketList"-->
-        <!--stripe-->
-        <!--style="width: 100%">-->
-        <!--<el-table-column-->
-          <!--prop="title"-->
-          <!--label="使用条件"-->
-          <!--width="180">-->
-        <!--</el-table-column>-->
-        <!--<el-table-column-->
-          <!--prop="status"-->
-          <!--label="使用有效期"-->
-          <!--width="180">-->
-        <!--</el-table-column>-->
-        <!--<el-table-column-->
-
-          <!--label="发送期限">-->
-          <!--<template slot-scope="scope">-->
-
-            <!--<span>{{scope.row.start_time|parseTime('{y}-{m}-{d}')}}</span>-->
-            <!-- - -->
-            <!--<span>{{scope.row.end_time|parseTime('{y}-{m}-{d}')}}</span>-->
-
-          <!--</template>-->
-        <!--</el-table-column>-->
-
-        <!--<el-table-column-->
-
-          <!--label="发送卡卷">-->
-          <!--<template slot-scope="scope">-->
-
-            <!--<span>{{scope.row.price}}</span>-->
-
-          <!--</template>-->
-        <!--</el-table-column>-->
-
-        <!--<el-table-column-->
-
-          <!--label="管理">-->
-          <!--<template slot-scope="scope">-->
-            <!--<el-button type="text">修改</el-button>-->
-            <!--<el-button type="text">删除</el-button>-->
-
-          <!--</template>-->
-        <!--</el-table-column>-->
-      <!--</el-table>-->
     </div>
 
     <!-- 新建优惠券 -->
@@ -458,7 +448,7 @@
         listQuery: {
           page: 1,
           limit: 10,
-          status: 0,
+          status: undefined,
           title: '',
           sstatus: 'all'
         }
@@ -1024,6 +1014,57 @@
 
       .income-table {
         margin: 20px 0;
+      }
+    }
+
+    .income-search {
+      display: flex;
+
+      .search-item > > > .el-input__inner {
+        height: 26px;
+        font-size: 12px;
+        padding: 0 10px;
+      }
+
+      .search-item {
+        display: flex;
+        align-items: center;
+        // margin-right: 15px;
+        width: 23%;
+        .label {
+          font-size: 12px;
+          padding-right: 4px;
+          color: #333;
+          font-weight: 400;
+        }
+        .search-btn {
+          width: 30%;
+          background: #009cff;
+          border: 1px solid #f5f5f5;
+          text-align: center;
+          border-radius: 4px;
+          font-size: 12px;
+          padding: 5px 1px;
+          color: #fff;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+      .search-item:nth-child(1) {
+        margin-left: 3%;
+      }
+      .search-item:nth-child(4) {
+        width: 20%;
+      }
+
+      .search-item > > > .el-input__icon {
+        line-height: 26px;
+      }
+
+      .search-item > > > .el-input__prefix {
+        display: none;
       }
     }
 

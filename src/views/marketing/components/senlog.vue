@@ -5,11 +5,11 @@
         <el-row>
           <el-col :span="8">
             <el-form-item label="发送日期:">
-
               <el-date-picker
-                style="width: 150px"
                 v-model="listQuery.create_time"
-                type="date"
+                type="datetimerange"
+                :picker-options="pickerOptions"
+
                 size="mini"
                 placeholder="选择日期">
               </el-date-picker>
@@ -30,6 +30,21 @@
           </el-col>
 
           <el-col :span="4">
+            <el-form-item label="状态:">
+              <el-select size="mini" filterable clearable v-model="listQuery.status" placeholder>
+                <el-option
+                        v-for="item in statusOp"
+                        :label="item.label"
+                        :value="item.value"
+                        @keyup.enter.native="handleFilter()"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
+
+
+
+          <el-col :span="4">
             <el-form-item label="核销码:">
               <el-input
                 v-model="listQuery.code"
@@ -38,12 +53,20 @@
               />
             </el-form-item>
           </el-col>
+          <el-col :span="4">
+
+          <div style="margin-top: 5px;margin-left: 10px">
+           <el-tooltip content="搜索" placement="top">
+             <el-button v-waves type="primary" size="mini" @click="handleFilter()">搜索</el-button>
+           </el-tooltip>
+         </div>
+          </el-col>
 
         </el-row>
       </el-form>
     </div>
-    <el-row style="margin-bottom: 10px;    text-align: right;    margin-right: 45px;">
-      <div>
+    <el-row>
+      <div style="text-align: center">
         <el-tag type="success">
           发送数量
           {{total}}
@@ -59,15 +82,7 @@
 
 
     <!-- 操作 -->
-    <el-row style="margin-bottom: 10px;    text-align: right;    margin-right: 45px;">
-      <el-col :xs="24" :sm="24" :lg="24">
 
-
-        <el-tooltip content="搜索" placement="top">
-          <el-button v-waves type="primary" size="mini" @click="handleFilter()">搜索</el-button>
-        </el-tooltip>
-      </el-col>
-    </el-row>
 
     <el-table
       v-loading="listLoading"
@@ -106,7 +121,7 @@
         label="状态"
         width="180">
         <template slot-scope="{row}">
-          成功
+          {{row.status}}
         </template>
       </el-table-column>
 
@@ -153,16 +168,53 @@
     data() {
       return {
         shop:[],
+        pickerOptions: {
+          shortcuts: [{
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit('pick', [start, end]);
+            }
+          }]
+        },
         listQuery: {
           page: 1,
           limit: 10,
-          status: 'all',
+          status: undefined,
           title: '',
           sstatus: 'all',
           nickname: '',
           contact: '',
           cityCode: ''
         },
+        statusOp:[
+          {
+            label:'已使用',
+            value:1
+          },
+          {
+            label:'待使用',
+            value:2
+          },
+        ],
         sumprice:0,
         list: null,
         total: 1,

@@ -353,5 +353,8 @@
       border-radius: 10%;
     }
   }
+  .form >>> .el-form-item__label{
+    width: 100px;
+  }
 
 </style>

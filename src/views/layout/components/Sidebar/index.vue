@@ -15,7 +15,7 @@
               :key="index">
           <div v-if="list.children" :class="['brlist-name',tar_num_list===index?'brlist-active':'',list.children]"
           >
-            <a   v-show="!list.hidden">
+            <a   v-if="!list.hidden">
               {{list.name}}
             </a>
 
@@ -23,7 +23,7 @@
 
           <div v-else>
             <div  v-if="!list.hidden" :class="['brlist-name',tar_num_list===index?'brlist-active':'',list.children]">
-              <a  @click="tobarlist(index)" :href="list.url"  v-show="!list.hidden">
+              <a  @click="tobarlist(index)" :href="list.url"  v-if="!list.hidden">
                 {{list.name}}
 
               </a>

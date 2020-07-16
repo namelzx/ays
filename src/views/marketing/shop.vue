@@ -3,7 +3,7 @@
     <!-- 搜索模块 -->
     <div class="filter-container dn">
       <el-form :inline="true" :model="listQuery">
-        <el-row style="display: flex;justify-content: center;">
+        <el-row >
           <el-col :span="7">
             <el-form-item label="需求搜索">
               <el-input
@@ -11,11 +11,14 @@
                 size="mini"
                 v-model="listQuery.content"
               ></el-input>
+
             </el-form-item>
           </el-col>
+          <el-button  style="    margin-top: 5px;
+    margin-left: 10px;" @click="headSearch" type="primary" size="mini">搜索</el-button>
+
         </el-row>
       </el-form>
-      <el-button class="filter-search" @click="headSearch" type="primary" size="mini">搜索</el-button>
     </div>
     <!-- 表格 -->
     <div class="new-table" v-loading="listLoading">
@@ -275,9 +278,9 @@ export default {
     position: relative;
   }
   .filter-search {
-    position: absolute;
-    right: 30%;
-    top: 4px;
+    /*position: absolute;*/
+    /*right: 30%;*/
+    /*top: 4px;*/
   }
   .dn .el-form-item .el-form-item__label {
     width: 26%;

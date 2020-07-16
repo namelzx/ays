@@ -142,16 +142,16 @@
 
         <div style="display: flex;flex-direction: row">
           <UploadList
-            :list="imglist"
+            :list="imgl"
             type="1"
             title="添加凭证"
             :limit="3"
             @HandelFile="handelFile"
           />
           <UploadList
-            :list="videolist"
+            :list="vilist"
             type="2"
-            title="添加凭证"
+            title="添加视频"
             :limit="2"
             @HandelFile="handelVideo"
           />
@@ -198,6 +198,7 @@ export default {
   data() {
     return {
       is_load: false,
+      vilist:[],
       shopQuery: {
         cityCode: undefined,
         shopname: undefined,
@@ -205,6 +206,7 @@ export default {
         limit: 10,
         tel: undefined
       },
+      imgl:[],
       imglist: [],
       videolist: [],
       is_disabled: false,
@@ -343,10 +345,12 @@ export default {
       const img = [];
       for (let i = 0; i < this.imglist.length; i++) {
         img.push(this.imglist[i].url);
+        this.imgl.push(this.imglist[i].url)
       }
       const video = [];
       for (let i = 0; i < this.videolist.length; i++) {
         video.push(this.videolist[i].url);
+                this.vilist.push(this.videolist[i].url);
       }
       this.postFrom.logcontent = this.userinfo.realName + "创建订单";
       this.postFrom.imglist = img.join(",");

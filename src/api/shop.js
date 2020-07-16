@@ -227,6 +227,14 @@ export function GetIdBydelete(id) {
 
 
 
+export function PostRecomBySet(data) {
+  return request({
+    url: '/admin/shop/PostRecomBySet',
+    method: 'post',
+    data
+  })
+}
+
 
 
 

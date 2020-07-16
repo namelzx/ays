@@ -143,11 +143,13 @@
     <!-- 表格 -->
 
     <!-- 分页 -->
+    <div class="pageclass">
     <div class="pagination-container">
       <el-pagination v-show="total>0" :current-page="listQuery.page" :page-sizes="[10,20,30, 50]"
                      :page-size="listQuery.psize" :total="total" background
                      layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange"
                      @current-change="handleCurrentChange"/>
+    </div>
     </div>
 
 
@@ -1078,6 +1080,19 @@
       width: 100px;
       height: 100px;
       border-radius: 10%;
+    }
+  }
+
+  .pageclass {
+    .pagination-container {
+      position: fixed;
+      bottom: 0;
+      padding-top: 4px;
+      padding-bottom: 9px;
+      background: #ffffff;
+      width: 100%;
+      padding-left: 20px;
+      /*text-align: c;*/
     }
   }
 

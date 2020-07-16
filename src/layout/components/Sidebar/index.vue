@@ -1,7 +1,6 @@
 <template>
   <div class="has-logo">
     <logo :collapse="true"/>
-
     <div class="bartar">
       <div class="broadside">
         <div :class="['br—item',tar_num===index?'br-active':'']" v-for="(item,index) in tablist" :key="index"

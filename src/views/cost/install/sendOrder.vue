@@ -497,14 +497,14 @@
                 </div>
                 <div style="display: flex;flex-direction: row">
                     <UploadList
-                            :list="imglist"
+                            :list="imgl"
                             type="1"
                             title="添加相片"
                             :limit="3"
                             @HandelFile="handelFile"
                     />
                     <UploadList
-                            :list="videolist"
+                            :list="videol"
                             type="2"
                             title="添加视频"
                             :limit="2"
@@ -580,7 +580,9 @@
                     tel: undefined
                 },
                 imglist: [],
+                imgl:[],
                 videolist: [],
+                videol:[],
                 is_disabled: false,
                 loading: false,
                 innerVisible: false,
@@ -719,10 +721,12 @@
                 const img = [];
                 for (let i = 0; i < this.imglist.length; i++) {
                     img.push(this.imglist[i].url);
+                    this.imgl.push(this.imglist[i].url);
                 }
                 const video = [];
                 for (let i = 0; i < this.videolist.length; i++) {
                     video.push(this.videolist[i].url);
+                    this.videol.push(this.videolist[i].url);
                 }
                 this.postFrom.logcontent = this.userinfo.realName + "创建订单";
                 this.postFrom.imglist = img.join(",");

@@ -116,7 +116,7 @@
       <el-col :xs="24" :sm="24" :lg="24">
         <el-tooltip content="搜索" placement="top">
           <el-button
-            v-if="rolesbtn('o-67-1')"
+            v-if="rolesbtn('o-96-1')"
             v-waves
             type="primary"
             size="mini"
@@ -125,7 +125,7 @@
         </el-tooltip>
         <el-tooltip content="导出" placement="top">
           <el-button
-            v-if="rolesbtn('o-67-4')"
+            v-if="rolesbtn('o-96-4')"
             v-waves
             type="primary"
             size="mini"
@@ -134,7 +134,7 @@
         </el-tooltip>
         <el-tooltip content="新增" placement="top">
           <el-button
-            v-if="rolesbtn('o-67-3')"
+            v-if="rolesbtn('o-96-3')"
             v-waves
             type="primary"
             size="mini"
@@ -968,7 +968,6 @@ export default {
         this.list = response.data.data
         this.total = response.data.total
         const countdata = response.data.countdata
-        console.log(countdata)
 
         var temp = []
         var allsum = 0
@@ -1417,7 +1416,7 @@ export default {
         width: 50%;
         text-align: center;
         display: flex;
-        justify-content: center;
+        justify-content: flex-end;
         .is-plain {
           padding-top: 3px;
           padding-bottom: 3px;

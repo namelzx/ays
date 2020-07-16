@@ -6,6 +6,10 @@ const state = {
     opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
     withoutAnimation: false
   },
+  Query:{
+    limit:10,
+    page:1
+  },
   device: 'desktop',
   language: getLanguage(),
   size: Cookies.get('size') || 'medium'
@@ -24,6 +28,9 @@ const mutations = {
 
 
 
+  },
+  QUERY:(state,query)=>{
+    state.Query=query
   },
   CLOSE_SIDEBAR: (state, withoutAnimation) => {
     Cookies.set('sidebarStatus', 0)
@@ -47,6 +54,10 @@ const mutations = {
 const actions = {
   toggleSideBar({ commit }) {
     commit('TOGGLE_SIDEBAR')
+  },
+  toListQuery({commit},query){
+    console.log(query)
+    commit('QUERY',query)
   },
   closeSideBar({ commit }, { withoutAnimation }) {
     commit('CLOSE_SIDEBAR', withoutAnimation)

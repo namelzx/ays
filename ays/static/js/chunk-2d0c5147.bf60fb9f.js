@@ -1,0 +1,1 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d0c5147"],{"3e21":function(e,n,c){"use strict";c.r(n);var t=function(){var e=this,n=e.$createElement,c=e._self._c||n;return c("div",[e._v("\n    质保码\n")])},a=[],s={name:"assurancecode"},u=s,r=c("2877"),d=Object(r["a"])(u,t,a,!1,null,"26eddb60",null);n["default"]=d.exports}}]);

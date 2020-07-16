@@ -22,7 +22,7 @@ router.beforeEach(async(to, from, next) => {
   if (hasToken) {
     if (to.path === '/login') {
       // if is logged in, redirect to the home page
-      next({ path: '/' })
+      next({ path: '/situation/situation' })
       NProgress.done()
     } else {
 
@@ -30,7 +30,6 @@ router.beforeEach(async(to, from, next) => {
       if (store.getters.roles > 0) {
         next()
       } else {
-
         store.dispatch('user/GetUserInfo').then(res=>{
           const access = res.data.access
           store.dispatch('GenerateRoutes', access).then(() => { // 根据roles权限生成可访问的路由表

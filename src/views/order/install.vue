@@ -41,14 +41,6 @@
                   size="mini"
                   v-model="listQuery.shopname"
                 ></el-input>
-                <!--<el-select size="mini" filterable clearable v-model="listQuery.shop_id" placeholder>-->
-                  <!--<el-option-->
-                    <!--v-for="item in shop"-->
-                    <!--:label="item.shopname"-->
-                    <!--:value="item.id"-->
-                    <!--:disabled="listQuery.salesman_id === item.id"-->
-                  <!--&gt;</el-option>-->
-                <!--</el-select>-->
               </el-form-item>
             </el-col>
             <el-col :span="4">
@@ -1035,13 +1027,11 @@
   import addOrder from './install/addOrder'
   import OrderInfo from './install/OrderInfo'
   import { Citylist } from '@/api/city'
-
+  import { GetProductByTree } from '@/api/product'
   import { getBrand, getSeries, getModel } from '@/api/tools'
-
   import { GetecshopByList } from '@/api/ecshop'
   import { GetDataByShopAll } from '@/api/shop'
 
-  import { GetProductByTree } from '@/api/product'
 
   import { GetSaleByAll } from '@/api/salesman'
 
@@ -2285,7 +2275,7 @@
           width: 25%;
           text-align: center;
           display: flex;
-          justify-content: center;
+          justify-content: flex-end;
           .is-plain {
             padding-top: 3px;
             padding-bottom: 3px;

@@ -32,7 +32,10 @@
         <el-form-item>
           <el-button type="primary" icon="el-icon-search" size="small" @click="handleFilter">搜索</el-button>
           <el-button type="primary" icon="el-icon-upload2" size="small" @click="handelDig">导入</el-button>
+          <el-button type="primary"  size="small" @click="handeldow">下载模版</el-button>
+
         </el-form-item>
+
 
       </el-form>
 
@@ -98,11 +101,14 @@
     <!-- 表格 -->
 
     <!-- 分页 -->
-    <div class="pagination-container">
+    <div class="pageclass">
+
+    <div class="pagination-container page">
       <el-pagination v-show="total>0" :current-page="listQuery.page" :page-sizes="[10,20,30, 50]"
                      :page-size="listQuery.psize" :total="total" background
                      layout="total, sizes, prev, pager, next, jumper" @size-change="handleSizeChange"
                      @current-change="handleCurrentChange"/>
+    </div>
     </div>
 
 
@@ -194,7 +200,10 @@
 
     },
     methods: {
-
+      handeldow(){
+        let url='https://pdpt.oss-cn-beijing.aliyuncs.com/%E8%BF%9B%E8%B4%A7%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xlsx'
+      window.location.href=url
+      },
       handelDig(){
         this.dialogVisible=true;
       },
@@ -357,4 +366,16 @@
     }
   }
 
+  .pageclass {
+    .pagination-container {
+      position: fixed;
+      bottom: 0;
+      padding-top: 4px;
+      padding-bottom: 9px;
+      background: #ffffff;
+      width: 100%;
+      padding-left: 20px;
+      /*text-align: c;*/
+    }
+  }
 </style>

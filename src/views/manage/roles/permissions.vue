@@ -11,8 +11,8 @@
       <el-form-item label="岗位名称" prop="title">
         <el-input v-model="temp.title" clearable/>
       </el-form-item>
-<!--      {{checkList}}-->
 
+<!--      {{rolesList}}-->
       <!--<el-form-item label="状态">-->
       <!--<el-radio-group v-model="temp.status">-->
       <!--<el-radio :label="1">正常</el-radio>-->

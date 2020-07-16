@@ -169,6 +169,27 @@
             </div>
           </div>
 
+          <div class="ct-item">
+            <span class="label">结算方式</span>
+            <div class="c-input">
+              <el-select
+                      size="mini"
+                      clearable
+                      disabled
+                      v-model="postFrom.to_hang"
+                      filterable
+                      placeholder="请选择"
+              >
+                <el-option
+                        v-for="item in hang"
+                        :label="item.lable"
+                        :value="item.value"
+
+                ></el-option>
+              </el-select>
+            </div>
+          </div>
+
 
           <div class="ct-item">
             <span class="label">主业务员</span>
@@ -491,6 +512,15 @@
     name: 'sendOrder',
     data() {
       return {
+        hang:[
+          {
+            lable:'加余额',
+            value:0
+          },  {
+            lable:'挂帐',
+            value:1
+          }
+        ],
         img:[],
         colors: ['#99A9BF', '#F7BA2A', '#FF9900'], // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
 

@@ -50,7 +50,14 @@
           <Timeline :activities="payloglist"></Timeline>
         </div>
       </el-tab-pane>
-      <!--<el-tab-pane label="分销" name="distribution">定时任务补偿</el-tab-pane>-->
+      <el-tab-pane label="分销" name="distribution">
+        <div class="disd">
+          <span>分销1 金额 {{distribution.one?distribution.one:0}}</span>
+        </div>
+        <div class="disd">
+          <span>分销2 金额 {{distribution.tow?distribution.tow:0}}</span>
+        </div>
+      </el-tab-pane>
       <el-tab-pane v-if="rolesbtn('o-67-6')" label="回访" name="return">
         <returnVisit :activities="sale"></returnVisit>
       </el-tab-pane>
@@ -80,6 +87,8 @@
   import returnVisit from './info/returnVisit'
 
   import { GetIdByOrderLog, GetTypeBySale, PostDataBySale, GetIdBypaydetails,GetIdBypayOrderLog } from '@/api/order'
+
+  import {GetInfoById } from '@/api/product'
 
   import Upload from '@/components/Upload/eva'
 
@@ -122,6 +131,7 @@
     },
     data() {
       return {
+        distribution:{},
         payinfo:[],
         paylist:[],
         payloglist:[],
@@ -149,7 +159,10 @@
     created() {
       this.permissions = this.group.btn.split(',')
       this.activeName=this.tabtext
-
+      let id=this.OrderInfo.product_id?this.OrderInfo.product_id:0
+      GetInfoById(id).then(res=>{
+        this.distribution=res.data
+      })
 
     },
     methods: {
@@ -292,6 +305,11 @@
   .el-tabs__content{
     height: 400px;
     overflow: auto;
+  }
+  .disd{
+    font-weight: 400;
+    color: #1f2f3d;
+    line-height: 1.5;
   }
 </style>
 

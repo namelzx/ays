@@ -246,9 +246,9 @@
 
         <div class="table-filed jl" style="justify-content: center">
           <div class="filed-price">
-            <router-link :to="'/shop/test/'+item.id">
-              <el-button size="mini" type="primary">店铺管理</el-button>
-            </router-link>
+<!--            <router-link :to="'/shop/test/'+item.id">-->
+              <el-button size="mini" type="primary" @click="handelQuery(item.id)">店铺管理</el-button>
+<!--            </router-link>-->
           </div>
         </div>
       </div>
@@ -282,6 +282,8 @@
     <div v-if="total<1" class="no-data">当前暂无数据</div>
     <!--</div>-->
     <!-- 分页 -->
+<!--    pageclass-->
+    <div class="pageclass">
     <div class="pagination-container">
       <el-pagination
         v-show="total>0"
@@ -294,6 +296,7 @@
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
       />
+    </div>
     </div>
   </div>
 </template>
@@ -421,6 +424,11 @@ export default {
   computed: {},
   watch: {},
   created() {
+    let query=this.$route.query
+    if(query.listQuery!==undefined){
+      this.listQuery=query.listQuery
+    }
+    console.log(query)
     this.fetchList();
 
     GetSaleByAll().then(res => {
@@ -433,7 +441,10 @@ export default {
   },
 
   methods: {
-
+    handelQuery(id){
+      this.$store.dispatch('app/toListQuery',this.listQuery)
+      this.$router.push({path:'/shop/test/'+id})
+    },
     elCascaderOnlick() {
       let that = this;
       setTimeout(function() {
@@ -937,5 +948,17 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+.pageclass {
+  .pagination-container {
+    position: fixed;
+    bottom: 0;
+    padding-top: 4px;
+    padding-bottom: 9px;
+    background: #ffffff;
+    width: 100%;
+    padding-left: 20px;
+    /*text-align: c;*/
+  }
 }
 </style>

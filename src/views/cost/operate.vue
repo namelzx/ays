@@ -413,12 +413,9 @@ import sendOper from './install/sendOper'
 import OrderInfocost from './install/OrderInfocost'
 
 import Audit from './install/costaudit'
-
 import { CarBrand } from '@/api/tools'
 import { GetecshopByList } from '@/api/ecshop'
 import { GetDataByShopAll } from '@/api/shop'
-
-
 import { GetSaleByAll } from '@/api/salesman'
 import { regionDataPlus } from 'element-china-area-data'
 
@@ -1292,7 +1289,7 @@ export default {
         text-align: center;
         display: flex;
         justify-content: flex-end;
-        margin-right: 10%;
+        /*margin-right: 10%;*/
         .is-plain {
           padding-top: 3px;
           padding-bottom: 3px;

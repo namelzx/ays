@@ -1,17 +1,17 @@
 import request from '@/utils/request'
 
-export function GetDataBylist(query) {
+export function GetDataByList(query) {
   return request({
-    url: '/admin/Ordervideo/GetDataBylist',
+    url: '/admin/Marketing/GetDataByList',
     method: 'get',
     params: query
   })
 }
 
 
-export function PostDataByUpdate(query) {
+export function PostStatusByData(query) {
   return request({
-    url: '/admin/Ordervideo/PostDataByUpdate',
+    url: '/admin/Marketing/PostStatusByData',
     method: 'post',
     params: query
   })
