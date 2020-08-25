@@ -9,7 +9,6 @@
                 v-model="listQuery.create_time"
                 type="datetimerange"
                 :picker-options="pickerOptions"
-
                 size="mini"
                 placeholder="选择日期">
               </el-date-picker>
@@ -110,6 +109,16 @@
       </el-table-column>
 
       <el-table-column
+              label="发送类型"
+              width="180">
+        <template slot-scope="{row}">
+          <span v-if="row.type===1">  手动发送</span>
+          <span v-if="row.type===2">  自动发送</span>
+
+        </template>
+      </el-table-column>
+
+      <el-table-column
         label="核销码"
         width="180">
         <template slot-scope="{row}">
@@ -143,7 +152,7 @@
           v-show="total > 0"
           :current-page="listQuery.page"
           :page-sizes="[10, 20, 30, 50]"
-          :page-size="listQuery.psize"
+          :page-size="listQuery.limit"
           :total="total"
           background
           layout="total, sizes, prev, pager, next, jumper"
@@ -207,11 +216,11 @@
         },
         statusOp:[
           {
-            label:'已使用',
+            label:'成功',
             value:1
           },
           {
-            label:'待使用',
+            label:'失败',
             value:2
           },
         ],
@@ -246,14 +255,13 @@
         this.fetchList()
       },
       handleSizeChange(val) {
-        this.listQuery.psize = val
+        this.listQuery.limit = val
         this.fetchList()
       },
 
 
       handleCurrentChange(val) {
-        this.listQuery.page = 1
-        this.listQuery.sstatus = val
+        this.listQuery.page = val
         this.fetchList()
       }
     }

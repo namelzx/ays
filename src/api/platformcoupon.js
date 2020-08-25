@@ -16,6 +16,27 @@ export function PostDataByAdd(data) {
   })
 }
 
+
+export function GetCouponByAll(query) {
+  return request({
+    url: '/admin/Platformcoupon/GetCouponByAll',
+    method: 'post',
+    query
+  })
+}
+
+
+export function PostShopCouponByData(data) {
+  return request({
+    url: '/admin/Platformcoupon/PostShopCouponByData',
+    method: 'post',
+    data
+  })
+}
+
+
+
+
 export function GetIdByDelete(id) {
   return request({
     url: '/admin/Platformcoupon/GetIdByDelete',

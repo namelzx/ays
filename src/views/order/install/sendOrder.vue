@@ -1012,7 +1012,7 @@
     import {GetProductByTree} from "@/api/product";
     import openWindow from '@/utils/openWindow'
     import {GetModelIdByInfo, importCarLamp,GetCarlampInfo} from "@/api/carlamp";
-
+        let sel=this;
     const defaultForm = {
         logcontent: "",
         openid: "oQJN40ldFZYLvqoIZm3NGwFu8oKA",
@@ -1050,6 +1050,7 @@
                     lazy: true,
                     lazyLoad(node, resolve) {
                         const {level} = node;
+                        console.log(level,node)
                         if (level === 0) {
                             getBrand().then(res => {
                                 var data = res.data;

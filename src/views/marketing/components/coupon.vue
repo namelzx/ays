@@ -15,6 +15,24 @@
         </div>
       </div>
 
+      <div class="search-item">
+        <div class="label" style="width: 200px">到期时间：</div>
+        <div class="value" style="width: 500px">
+          <el-date-picker
+                  v-model="listQuery.end_time"
+                  type="datetimerange"
+                  :picker-options="pickerOptions"
+
+                  size="mini"
+                  placeholder="选择日期">
+          </el-date-picker>
+        </div>
+      </div>
+
+
+
+
+
 
       <div class="search-item">
         <div class="search-btn"  @click="handleFilter">搜索</div>
@@ -216,7 +234,6 @@
             />
           </div>
         </div>
-
         <div class="money">
           <div class="money-name">
             <span class="name-span">发送对象</span>
@@ -225,16 +242,14 @@
           <div class="textarea">
             <el-select size="mini" v-model="postFrom.group" multiple placeholder="请选择">
               <el-option
-                v-for="item in group"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id">
+                      v-for="item in group"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id">
               </el-option>
             </el-select>
           </div>
         </div>
-
-
         <div class="money" style="align-items:normal">
           <div class="money-name">
             <span class="name-span">使用说明</span>
@@ -473,7 +488,7 @@
         }).then(() => {
 
           let index=this.ticketList.indexOf(row);
-          // this.ticketList.splice(index,1);
+          this.ticketList.splice(index,1);
 
           GetIdByDelete(row.id).then(res=>{
             this.ticketList[index].status=3
@@ -551,6 +566,7 @@
       // 确定新建
       headNewconfirm() {
         this.postFrom.sender_id=this.userinfo.id
+        this.postFrom.type=1
         PostDataByAdd(this.postFrom).then(res => {
           console.log(res)
           this.postFrom={}

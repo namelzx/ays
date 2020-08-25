@@ -51,12 +51,17 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="分销" name="distribution">
-        <div class="disd">
+        <div class="disd" v-if="OrderInfo.is_fx==1&&OrderInfo.is_fs==1">
           <span>分销1 金额 {{distribution.one?distribution.one:0}}</span>
         </div>
-        <div class="disd">
+        <div class="disd" v-if="OrderInfo.is_fx==1&&OrderInfo.is_fs==1">
           <span>分销2 金额 {{distribution.tow?distribution.tow:0}}</span>
         </div>
+        <div class="disd" v-if="OrderInfo.is_fs===1">
+          <span>分销商：改灯之家</span>
+        </div>
+
+
       </el-tab-pane>
       <el-tab-pane v-if="rolesbtn('o-67-6')" label="回访" name="return">
         <returnVisit :activities="sale"></returnVisit>
@@ -163,7 +168,7 @@
       GetInfoById(id).then(res=>{
         this.distribution=res.data
       })
-
+console.log(this.OrderInfo)
     },
     methods: {
 

@@ -201,7 +201,7 @@
     },
     methods: {
       handeldow(){
-        let url='https://pdpt.oss-cn-beijing.aliyuncs.com/%E8%BF%9B%E8%B4%A7%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xlsx'
+        let url='https://kedand.oss-cn-beijing.aliyuncs.com/uploads/%E8%BF%9B%E8%B4%A7%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF%20%281%29.xlsx'
       window.location.href=url
       },
       handelDig(){
@@ -227,6 +227,7 @@
         PostDataByAdd(results).then(res => {
           this.$message.success('导入成功');
           this.fetchList()
+        this.dialogVisible=false
         })
         // this.tableHeader = header
       },

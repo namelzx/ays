@@ -4,7 +4,7 @@ export function GetModelIdByInfo(query) {
     return request({
         url: '/admin/CarLamp/GetModelIdByInfo',
         method: 'get',
-        params: {model_id},
+        params: query,
     })
 }
 

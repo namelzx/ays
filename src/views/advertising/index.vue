@@ -2,8 +2,36 @@
     <div class="app-container">
         <el-card class="filter-container" shadow="never">
             <div>
+
+
                 <i class="el-icon-search"></i>
                 <span>筛选搜索</span>
+
+                <div class="filter-container dn">
+                    <el-form :inline="true" :model="listQuery">
+                        <el-row>
+                            <el-col :span="4">
+                                <el-form-item label="广告名称:">
+                                    <el-input v-model="listQuery.name" size="mini" @keyup.enter.native="handleFilter()" />
+                                </el-form-item>
+                            </el-col>
+                            <el-col :span="4">
+                                <el-form-item label="广告类型:">
+                                    <el-select
+                                            v-model="listQuery.type"
+                                            size="mini"
+                                            filterable
+                                            clearable
+                                            placeholder
+                                            @change="handleSearchList()"
+                                    >
+                                        <el-option v-for="item in typeOptions" :label="item.label" :value="item.value" />
+                                    </el-select>
+                                </el-form-item>
+                            </el-col>
+                        </el-row>
+                    </el-form>
+                </div>
                 <el-button
                         style="float:right"
                         type="primary"
@@ -40,9 +68,9 @@
                 <el-table-column label="广告名称" align="center">
                     <template slot-scope="scope">{{scope.row.name}}</template>
                 </el-table-column>
-                <!--<el-table-column label="广告位置" width="120" align="center">-->
-                <!--<template slot-scope="scope">{{scope.row.type | formatType}}</template>-->
-                <!--</el-table-column>-->
+                <el-table-column label="广告位置" width="120" align="center">
+                <template slot-scope="scope">{{scope.row.type | formatType}}</template>
+                </el-table-column>
                 <el-table-column label="广告图片" width="120" align="center">
                     <template slot-scope="scope"><img style="height: 80px;width: 100%" :src="scope.row.images_url">
                     </template>
@@ -73,26 +101,6 @@
                 </el-table-column>
             </el-table>
         </div>
-        <div class="batch-operate-container">
-            <el-select
-                    size="small"
-                    v-model="operateType" placeholder="批量操作">
-                <el-option
-                        v-for="item in operates"
-                        :key="item.value"
-                        :label="item.label"
-                        :value="item.value">
-                </el-option>
-            </el-select>
-            <el-button
-                    style="margin-left: 20px"
-                    class="search-button"
-                    @click="handleBatchOperate()"
-                    type="primary"
-                    size="small">
-                确定
-            </el-button>
-        </div>
         <div class="pagination-container">
             <el-pagination
                     background
@@ -119,11 +127,11 @@
     };
     const defaultTypeOptions = [
         {
-            label: '门店广告喂',
+            label: '门店广告',
             value: 1
         },
         {
-            label: '用户订单填写逛',
+            label: '用户订单填写',
             value: 2
         },
         {
@@ -156,9 +164,13 @@
         filters: {
             formatType(type) {
                 if (type === 1) {
-                    return 'APP首页轮播';
-                } else {
-                    return 'PC首页轮播';
+                    return '门店广告位';
+                }
+                if (type === 2) {
+                    return '用户订单填写广告';
+                }
+                if (type === 3) {
+                    return '营销推广广告';
                 }
             },
             formatTime(time) {

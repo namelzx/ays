@@ -7,7 +7,6 @@
       class="w-dia"
       :before-close="handleClose"
     >
-
       <div v-loading="loading" class="dia-content">
         <div class="c-data">
           <div class="c-content c-conwinht">
@@ -18,9 +17,7 @@
                   <el-select
                     v-model="postFrom.status"
                     size="mini"
-
-                    disabled=
-                    filterable
+                    disabled
                     placeholder="请选择"
                   >
                     <el-option
@@ -119,7 +116,7 @@
               <span class="label">申请日期</span>
               <div class="c-input">
                 <el-input
-                  v-model="postFrom.proposer_time"
+                  v-model="postFrom.create_time"
                   size="mini"
                   :disabled="true"
                   placeholder
@@ -158,9 +155,12 @@
         </div>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" size="mini" @click="handelCreate"
+        <el-button type="primary" v-if="postFrom.id===undefined" size="mini" @click="handelCreate"
           >确认增加</el-button
         >
+          <el-button type="primary" v-else size="mini" @click="handelCreate"
+          >修改信息</el-button
+          >
         <el-button size="mini" @click="handleClose">关闭</el-button>
       </span>
     </el-dialog>
@@ -279,9 +279,12 @@ export default {
     ShList
   },
   props: {
-    stitle: {
+    Stitle: {
       type: String,
       default: ""
+    },
+    postFrom:{
+        type:Object
     },
     dialogVisible: {
       type: Boolean,
@@ -296,7 +299,9 @@ export default {
     this.postFrom.status=1;
   },
   mounted() {
-    console.log(this.userinfo);
+    console.log('33');
+    this.imgl=this.postFrom.imglist
+    this.vilist=this.postFrom.videolist
   },
   methods: {
     handelToshop(row) {
@@ -352,7 +357,12 @@ export default {
         video.push(this.videolist[i].url);
                 this.vilist.push(this.videolist[i].url);
       }
-      this.postFrom.logcontent = this.userinfo.realName + "创建订单";
+      if(this.postFrom.id!==null||this.postFrom.id!==undefined){
+        this.postFrom.logcontent = this.userinfo.realName + "修改订单";
+
+      }else{
+        this.postFrom.logcontent = this.userinfo.realName + "创建订单";
+      }
       this.postFrom.imglist = img.join(",");
       this.postFrom.videolist = video.join(",");
       // this.postFrom.city_code = this.postFrom.city_code.join(",");

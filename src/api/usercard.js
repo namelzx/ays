@@ -28,5 +28,15 @@ export function GetCodeByDownload(query) {
 }
 
 
+export function PostSaveByData(data) {
+    return request({
+        url: '/admin/usercard/PostSaveByData',
+        method: 'post',
+        data
+    })
+}
+
+
+
 
 

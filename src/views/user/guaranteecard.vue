@@ -167,8 +167,7 @@
                             placeholder
                             v-model="form.product_all"
                             ref="product"
-                            @visible-change="elCascaderproduct"
-                            @expand-change="elCascaderproduct"
+                            @change="handelProduct"
                             change-on-select
                     ></el-cascader>
                 </el-form-item>
@@ -179,9 +178,7 @@
                 <el-form-item label="质保期">
                     <el-input v-model="form.codeday"></el-input>
                 </el-form-item>
-                <el-form-item label="质保期">
-                    <el-input v-model="form.codeday"></el-input>
-                </el-form-item>
+
                 <el-form-item label="车型">
 
 
@@ -236,7 +233,6 @@
                 </el-form-item>
 
 
-
                 <el-form-item label="店名">
                     <el-input v-model="form.shop_user"></el-input>
                 </el-form-item>
@@ -244,7 +240,6 @@
                 <el-form-item label="电话">
                     <el-input v-model="form.shop_phone"></el-input>
                 </el-form-item>
-
 
 
                 <el-form-item
@@ -264,16 +259,10 @@
                     ></el-cascader>
                 </el-form-item>
 
-
-
-                <el-form-item>
-                    <el-button type="primary">立即创建</el-button>
-                    <el-button>取消</el-button>
-                </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+    <el-button type="primary" @click="handelSave">确 定</el-button>
   </span>
         </el-dialog>
     </div>
@@ -282,8 +271,8 @@
 <script>
     import {getBrand, getModel, getSeries} from "@/api/tools";
 
-    import {GetDeleteById, GetDataByList, GetCodeByDownload} from '@/api/usercard';
-    import {GetQueryBydownload} from "@/api/order";
+    import {GetDeleteById, GetDataByList, GetCodeByDownload, PostSaveByData} from '@/api/usercard';
+    import {GetInfoById} from "@/api/product";
 
     import {parseTime} from '@/utils/index'
 
@@ -416,6 +405,25 @@
         },
         methods: {
 
+            handelProduct(e) {
+                console.log(e)
+                if (e.length > 1) {
+                    GetInfoById(e[1]).then(res => {
+                        console.log(res
+                        )
+                        this.form.codeday = res.data.quality_time
+                    })
+                }
+            },
+            handelSave() {
+                console.log(this.form)
+                PostSaveByData(this.form).then(res => {
+                    console.log(res)
+                    this.dialogVisible = false
+                    this.$message.success('更新成功');
+                    this.fetchList()
+                })
+            },
             handleUpdate(row) {
                 console.log(row)
                 this.form = {}
@@ -440,8 +448,6 @@
                         })
                     }
                 }
-
-
                 let user_address = row.user_city_code
                 if (user_address !== null) {
                     if (user_address.constructor == String) {
@@ -451,36 +457,26 @@
                             temp.push(parseInt(item))
                         })
                         user_address = temp
-
                     }
                 }
 
-
                 let shop_address = row.shop_city_code
+                console.log(shop_address)
                 if (shop_address !== null) {
                     if (shop_address.constructor == String) {
                         shop_address = shop_address.split(',')
                         let temp = [];
                         shop_address.forEach(item => {
-                            shop_address.push(parseInt(item))
+                            temp.push(parseInt(item))
                         })
                         shop_address = temp
-
                     }
                 }
-
-
                 this.form = row
                 this.form.product_all = product_all
                 this.form.car_model = car_model
                 this.form.user_city_code = user_address
-
                 this.form.shop_city_code = shop_address
-
-
-                console.log(this.form)
-
-
                 this.dialogVisible = true
             },
 

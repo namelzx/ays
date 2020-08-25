@@ -92,6 +92,11 @@
 openid:{{scope.row.openid}}
               </span>
 
+                  <span>
+
+unionid:{{scope.row.unionid}}
+              </span>
+
               </div>
 
             </div>

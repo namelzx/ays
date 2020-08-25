@@ -339,7 +339,7 @@
     <sendOper
       v-if="dialogVisible"
       :stitle="Stitle"
-      :post-from="postFrom"
+      :postFrom="postFrom"
       :dialog-visible="dialogVisible"
       @handleClose="handleClose"
     />
@@ -951,49 +951,31 @@ export default {
     handleEdit(row) {
       this.postFrom = {}
       this.postFrom = row
-      if (row.city_code.constructor === String) {
-        this.postFrom.city_code = this.postFrom.city_code.split(',')
-      }
-
-      if (row.car_model !== null) {
-        if (row.car_model.constructor === String) {
-          this.postFrom.car_model = this.postFrom.car_model.split(',')
-        }
-      }
-      if (row.buy_product_id !== null) {
-        if (row.buy_product_id.constructor === String) {
-          const arr = []
-          const temp = this.postFrom.buy_product_id.split(',')
-          for (let i = 0; i < temp.length; i++) {
-            arr.push(parseInt(temp[i]))
-          }
-
-          this.postFrom.buy_product_id = arr
-        }
-      }
-
-      if (row.lazada_list !== null) {
-        if (row.lazada_list.constructor === String) {
-          this.postFrom.lazada_list = this.postFrom.lazada_list.split(',')
-        }
-
-        const lazada = this.postFrom.lazada_list
-        this.postFrom.lazada_list = []
-        for (let i = 0; i < lazada.length; i++) {
-          this.postFrom.lazada_list.push(parseInt(lazada[i]))
-        }
-      }
 
       this.is_disabled = false
 
       if (this.postFrom.status === '驳回') {
         this.postFrom.status = '重新派单'
       }
+      if (row.lazada_list.constructor === String) {
+        this.postFrom.lazada_list = this.postFrom.lazada_list.split(",");
+      }
+      let lazada_list=[]
+      this.postFrom.lazada_list.forEach(item=>{
+        lazada_list.push(parseInt(item))
+      })
+      this.postFrom.lazada_list=lazada_list
+      console.log( this.postFrom.lazada_list)
 
       this.postFrom.status = '修改'
-
+      this.postFrom.imglist=this.postFrom.imglist.split(',')
+      let img=[];
+      this.postFrom.imglist.forEach(item=>{
+        img.push({url:item})
+      })
+      this.postFrom.imglist=img
       this.Stitle = '修改操作'
-
+    console.log(this.postFrom)
       this.dialogVisible = !this.dialogVisible
     },
     handleClose() {
